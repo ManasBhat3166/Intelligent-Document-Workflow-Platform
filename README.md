@@ -299,7 +299,3 @@ JWT Authentication
 RBAC
 
 ---
-
-## License
-
-MIT
