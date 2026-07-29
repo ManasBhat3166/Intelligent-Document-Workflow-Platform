@@ -1,0 +1,48 @@
+﻿### JAVA / MAVEN / SPRING BOOT ###
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+### IDE (IntelliJ) ###
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+### NODE / REACT / VITE ###
+node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+*.local
+
+### ENVIRONMENT / SECRETS ###
+.env
+.env.local
+.env.*.local
+application-secrets.yml
+application-local.yml
+*.pem
+*.key
+
+### LOGS ###
+*.log
+logs/
+npm-debug.log*
+
+### OS FILES ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### DOCKER ###
+docker/volumes/
+docker/data/
+
+### UPLOADED / TEMP FILES ###
+uploads/
+tmp/
+temp/
