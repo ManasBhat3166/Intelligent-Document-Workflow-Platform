@@ -1,0 +1,60 @@
+### ---------- JAVA / MAVEN / SPRING BOOT ---------- ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.class
+*.jar
+*.war
+*.ear
+
+### ---------- IDE (IntelliJ) ---------- ###
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+### ---------- VS CODE (frontend editing) ---------- ###
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### ---------- NODE / REACT / VITE ---------- ###
+node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+*.local
+
+### ---------- ENVIRONMENT / SECRETS ---------- ###
+.env
+.env.local
+.env.*.local
+application-secrets.yml
+application-local.yml
+*.pem
+*.key
+
+### ---------- LOGS ---------- ###
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+### ---------- OS FILES ---------- ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### ---------- DOCKER ---------- ###
+docker/volumes/
+docker/data/
+
+### ---------- UPLOADED / TEMP FILES (local dev only) ---------- ###
+uploads/
+tmp/
+temp/
