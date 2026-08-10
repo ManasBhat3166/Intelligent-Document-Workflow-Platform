@@ -1,3 +1,14 @@
+server:
+  port: 8080
+
 spring:
   application:
-    name: backend
+    name: document-workflow-platform
+
+  profiles:
+    active: dev
+
+logging:
+  level:
+    root: INFO
+    com.manasbhat.documentworkflowplatform: DEBUG
