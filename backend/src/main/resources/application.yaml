@@ -16,3 +16,8 @@ logging:
   level:
     root: INFO
     com.manasbhat.documentworkflowplatform: DEBUG
+
+app:
+  jwt:
+    secret: ThisIsATemporaryDevOnlySecretKeyChangeInProdMinimum256Bits
+    expiration-ms: 86400000
