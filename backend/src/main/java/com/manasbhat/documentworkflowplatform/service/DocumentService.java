@@ -18,6 +18,7 @@ public class DocumentService {
 
     private final DocumentRepository documentRepository;
     private final FileStorageService fileStorageService;
+    private final DocumentEventProducer documentEventProducer;
 
     public DocumentResponse uploadDocument(MultipartFile file, DocumentType type, UserPrincipal uploader) {
         String storedFileName = fileStorageService.storeFile(file);
@@ -36,6 +37,11 @@ public class DocumentService {
                 .build();
 
         documentRepository.save(doc);
+        documentEventProducer.publishDocumentUploaded(
+                new com.manasbhat.documentworkflowplatform.dto.DocumentUploadedEvent(
+                        doc.getId(), doc.getOriginalFileName(), doc.getContentType(), doc.getUploadedByUserId()
+                )
+        );
         return toResponse(doc);
     }
 
