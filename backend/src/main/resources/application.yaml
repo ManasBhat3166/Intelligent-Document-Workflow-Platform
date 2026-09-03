@@ -2,6 +2,10 @@ server:
   port: 8080
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
   application:
     name: document-workflow-platform
 
@@ -21,3 +25,6 @@ app:
   jwt:
     secret: ThisIsATemporaryDevOnlySecretKeyChangeInProdMinimum256Bits
     expiration-ms: 86400000
+
+  upload:
+    dir: ./uploads
