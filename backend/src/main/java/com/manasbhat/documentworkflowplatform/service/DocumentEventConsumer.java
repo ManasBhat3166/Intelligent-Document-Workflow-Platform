@@ -19,13 +19,14 @@ import java.time.Instant;
 public class DocumentEventConsumer {
 
     private final DocumentRepository documentRepository;
+    private final OcrService ocrService;
 
     @KafkaListener(topics = "document-uploaded", groupId = "document-workflow-group")
     @Retryable(retryFor = Exception.class, maxAttempts = 3, backoff = @Backoff(delay = 2000))
     public void consumeDocumentUploaded(DocumentUploadedEvent event,
                                         @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 
-        System.out.println("📥 Received event from topic [" + topic + "] for document: " + event.getDocumentId());
+        System.out.println("Received event from topic [" + topic + "] for document: " + event.getDocumentId());
 
         DocumentEntity doc = documentRepository.findById(event.getDocumentId())
                 .orElseThrow(() -> new RuntimeException("Document not found: " + event.getDocumentId()));
@@ -34,6 +35,19 @@ public class DocumentEventConsumer {
         doc.setUpdatedAt(Instant.now());
         documentRepository.save(doc);
 
-        System.out.println("✅ Document " + event.getDocumentId() + " marked as PROCESSING");
+        try {
+            String text = ocrService.extractText(doc.getFilePath());
+            doc.setExtractedText(text);
+            doc.setStatus(DocumentStatus.PROCESSED);
+            doc.setUpdatedAt(Instant.now());
+            documentRepository.save(doc);
+            System.out.println("Document " + event.getDocumentId() + " OCR complete, marked PROCESSED");
+        } catch (Exception e) {
+            doc.setStatus(DocumentStatus.FAILED);
+            doc.setUpdatedAt(Instant.now());
+            documentRepository.save(doc);
+            System.out.println("OCR failed for " + event.getDocumentId() + ": " + e.getMessage());
+            throw e;
+        }
     }
 }

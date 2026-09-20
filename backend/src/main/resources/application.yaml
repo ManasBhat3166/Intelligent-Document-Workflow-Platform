@@ -41,3 +41,6 @@ app:
 
   upload:
     dir: ./uploads
+
+  ocr:
+    tessdata-path: C:/Program Files/Tesseract-OCR/tessdata

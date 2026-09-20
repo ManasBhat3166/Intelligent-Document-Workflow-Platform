@@ -41,4 +41,6 @@ public class DocumentEntity {
     private Instant uploadedAt;
 
     private Instant updatedAt;
+
+    private String extractedText;
 }
