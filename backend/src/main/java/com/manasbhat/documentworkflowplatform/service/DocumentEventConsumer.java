@@ -22,6 +22,7 @@ public class DocumentEventConsumer {
     private final DocumentRepository documentRepository;
     private final OcrService ocrService;
     private final AiService aiService;
+    private final ApprovalService approvalService;
 
     @KafkaListener(topics = "document-uploaded", groupId = "document-workflow-group")
     @Retryable(retryFor = Exception.class, maxAttempts = 3, backoff = @Backoff(delay = 2000))
@@ -51,6 +52,7 @@ public class DocumentEventConsumer {
             doc.setStatus(DocumentStatus.PROCESSED);
             doc.setUpdatedAt(Instant.now());
             documentRepository.save(doc);
+            approvalService.submitForApproval(doc.getId());
             System.out.println("Document " + event.getDocumentId() + " OCR + AI analysis complete, marked PROCESSED");
         } catch (Exception e) {
             doc.setStatus(DocumentStatus.FAILED);

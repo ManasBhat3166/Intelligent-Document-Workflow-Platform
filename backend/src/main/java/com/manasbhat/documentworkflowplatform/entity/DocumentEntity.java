@@ -49,4 +49,7 @@ public class DocumentEntity {
     private String aiDocumentTypeGuess;
 
     private String aiExtractedEntities;
+
+    @Builder.Default
+    private ApprovalStatus approvalStatus = ApprovalStatus.NOT_SUBMITTED;
 }
