@@ -23,6 +23,8 @@ public class DocumentEventConsumer {
     private final OcrService ocrService;
     private final AiService aiService;
     private final ApprovalService approvalService;
+    private final EmbeddingService embeddingService;
+    private final VectorSearchService vectorSearchService;
 
     @KafkaListener(topics = "document-uploaded", groupId = "document-workflow-group")
     @Retryable(retryFor = Exception.class, maxAttempts = 3, backoff = @Backoff(delay = 2000))
@@ -47,6 +49,9 @@ public class DocumentEventConsumer {
                 doc.setAiSummary(aiResult.getSummary());
                 doc.setAiDocumentTypeGuess(aiResult.getDocumentTypeGuess());
                 doc.setAiExtractedEntities(aiResult.getExtractedEntities());
+
+                var embedding = embeddingService.getEmbedding(text);
+                vectorSearchService.upsertDocument(doc.getId(), embedding, doc.getOriginalFileName(), aiResult.getSummary());
             }
 
             doc.setStatus(DocumentStatus.PROCESSED);
