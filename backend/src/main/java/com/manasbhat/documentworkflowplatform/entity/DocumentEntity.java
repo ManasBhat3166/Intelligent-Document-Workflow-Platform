@@ -43,4 +43,10 @@ public class DocumentEntity {
     private Instant updatedAt;
 
     private String extractedText;
+
+    private String aiSummary;
+
+    private String aiDocumentTypeGuess;
+
+    private String aiExtractedEntities;
 }

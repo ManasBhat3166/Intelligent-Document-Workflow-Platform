@@ -23,7 +23,7 @@ frontend/.vite/
 .env
 .env.local
 .env.*.local
-application-secrets.yml
+application-secrets.yaml
 application-local.yml
 *.pem
 *.key
