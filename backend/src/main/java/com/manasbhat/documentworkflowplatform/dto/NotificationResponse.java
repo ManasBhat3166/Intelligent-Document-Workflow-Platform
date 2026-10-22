@@ -1,0 +1,21 @@
+package com.manasbhat.documentworkflowplatform.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+import java.time.Instant;
+
+@Data
+@Builder
+@AllArgsConstructor
+public class NotificationResponse {
+
+    private String id;
+    private String documentId;
+    private String title;
+    private String message;
+    private String type;
+    private boolean read;
+    private Instant createdAt;
+}

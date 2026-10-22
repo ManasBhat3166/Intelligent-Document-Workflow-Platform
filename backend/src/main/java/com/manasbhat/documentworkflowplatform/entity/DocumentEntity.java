@@ -1,0 +1,63 @@
+package com.manasbhat.documentworkflowplatform.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.Instant;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "documents")
+public class DocumentEntity {
+
+    @Id
+    private String id;
+
+    private String originalFileName;
+
+    private String storedFileName;
+
+    private String filePath;
+
+    private long fileSizeBytes;
+
+    private String contentType;
+
+    private DocumentType documentType;
+
+    @Builder.Default
+    private DocumentStatus status = DocumentStatus.UPLOADED;
+
+    private String uploadedByUserId;
+
+    private String uploadedByEmail;
+
+    private String assignedReviewerId;
+    private String assignedReviewerEmail;
+    private Instant assignedReviewerAt;
+
+    private Instant uploadedAt;
+
+    private Instant updatedAt;
+
+    private String extractedText;
+
+    private String aiSummary;
+
+    private String aiDocumentTypeGuess;
+
+    private String aiExtractedEntities;
+
+    @Builder.Default
+    private ApprovalStatus approvalStatus = ApprovalStatus.NOT_SUBMITTED;
+
+    @Builder.Default
+    private int resubmissionCount = 0;
+    private String resubmissionOfDocumentId;
+}

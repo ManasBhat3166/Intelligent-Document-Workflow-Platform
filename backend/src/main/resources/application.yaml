@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  config:
+    import: optional:classpath:application-secrets.yaml
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  application:
+    name: document-workflow-platform
+
+  profiles:
+    active: dev
+
+  mongodb:
+    uri: ${MONGODB_URI}
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: document-workflow-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+logging:
+  level:
+    root: INFO
+    com.manasbhat.documentworkflowplatform: DEBUG
+
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET}
+    expiration-ms: 86400000
+
+  upload:
+    dir: ./uploads
+
+  ocr:
+    tessdata-path: C:/Program Files/Tesseract-OCR/tessdata
+
